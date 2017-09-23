@@ -1,7 +1,7 @@
 # CustomCalendar
 Custom calendar created using JTAppleCalendar library.
 
-Cotents to be change: 
+Cotents to be change:  
 preDateSelectable = true   --- If you want to select the past dates  
 startDate = yourDate       --- The date from which you want to start calendar  
 
