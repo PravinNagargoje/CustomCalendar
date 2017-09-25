@@ -10,7 +10,7 @@ import UIKit
 import JTAppleCalendar
 
 protocol getDateDelegate {
-    func selectedDate(date: String)
+    func selectedDate(date: String, selected: Date)
 }
 
 class CalendarViewController: UIViewController {
@@ -21,6 +21,7 @@ class CalendarViewController: UIViewController {
     let monthColor = UIColor.white
     let selectedMonthColor = UIColor(hex: 0x3a294b)
     let currentDateSelectedViewColor = UIColor(hex: 0x4e3f5d)
+    var selected = Date()
     
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var monthLabel: UILabel!
@@ -37,7 +38,7 @@ class CalendarViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         setupCalendarView()
-        setDate(date: Date())
+//        setDate(date: selected)
         setupLabels()
     }
     
@@ -78,7 +79,8 @@ class CalendarViewController: UIViewController {
         calendarView.minimumInteritemSpacing = 0
         
         // Setup labels
-        
+        calendarView.scrollToDate(selected, animateScroll: false)
+        calendarView.selectDates([selected])
         calendarView.visibleDates { (visibleDates) in
             self.setupViewsOfCalendar(from: visibleDates)
         }
@@ -98,6 +100,7 @@ class CalendarViewController: UIViewController {
     func setDate(date: Date) {
         let formatters = DateFormatter()
         formatters.dateFormat = "dd MMM yyyy"
+        self.selected = date
         selectedDate.text = formatters.string(from: date)
     }
     
@@ -122,11 +125,10 @@ class CalendarViewController: UIViewController {
     
     @IBAction func doneClicked(_ sender: Any) {
         
-        self.delegate?.selectedDate(date: selectedDate.text!)
+        self.delegate?.selectedDate(date: selectedDate.text!, selected: self.selected)
         self.dismiss(animated: true, completion: nil)
         
     }
-    
     
     func handleCellSelected(view: JTAppleCell?, cellState: CellState, date: Date) {
         guard let validCell = view as? CustomCell else { return }
