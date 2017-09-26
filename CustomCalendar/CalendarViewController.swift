@@ -15,6 +15,8 @@ protocol getDateDelegate {
 
 class CalendarViewController: UIViewController {
 
+    let preDateSelectable: Bool = false
+    
     var delegate: getDateDelegate!
     
     let outsideMonthColor = UIColor(hex: 0x584a66)
@@ -25,21 +27,50 @@ class CalendarViewController: UIViewController {
     
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var monthLabel: UILabel!
-    @IBOutlet weak var yearLabel: UILabel!
-    
     @IBOutlet weak var yearView: UIView!
+    
     @IBOutlet weak var selectedDate: UILabel!
     @IBOutlet weak var dateView: UIView!
+    
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var topStackView: UIStackView!
+    
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var doneButton: UIButton!
     
     let formatter = DateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
         setupCalendarView()
-//        setDate(date: selected)
+        setupTopStackView()
         setupLabels()
+        setupButtons()
+    }
+    
+    func setupTopStackView() {
+        topStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topStackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            topStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            topStackView.widthAnchor.constraint(equalToConstant: 315),
+            topStackView.heightAnchor.constraint(equalToConstant: 433)
+        ])
+    }
+    
+    func setupButtons() {
+        doneButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            
+            doneButton.bottomAnchor.constraint(equalTo: self.topStackView.bottomAnchor, constant: -8),
+            doneButton.trailingAnchor.constraint(equalTo: self.topStackView.trailingAnchor, constant: -24),
+            
+            cancelButton.bottomAnchor.constraint(equalTo: self.topStackView.bottomAnchor, constant: -8),
+            cancelButton.trailingAnchor.constraint(equalTo: self.doneButton.leadingAnchor, constant: -24)
+        ])
     }
     
     func setupLabels() {
@@ -51,24 +82,21 @@ class CalendarViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             
-            yearView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 32),
-            yearView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            yearView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            yearView.topAnchor.constraint(equalTo: self.topStackView.topAnchor),
+            yearView.heightAnchor.constraint(equalToConstant: 50),
+            yearView.widthAnchor.constraint(equalTo: topStackView.widthAnchor, multiplier: 0),
   
             monthLabel.centerYAnchor.constraint(equalTo: self.yearView.centerYAnchor),
-            monthLabel.trailingAnchor.constraint(equalTo: self.yearView.centerXAnchor, constant: -8),
+            monthLabel.centerXAnchor.constraint(equalTo: self.yearView.centerXAnchor),
             
-            yearLabel.centerYAnchor.constraint(equalTo: self.yearView.centerYAnchor),
-            yearLabel.leadingAnchor.constraint(equalTo: self.yearView.centerXAnchor, constant: 8),
-            
-            dateView.topAnchor.constraint(equalTo: self.yearLabel.bottomAnchor, constant: 8),
-            dateView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            dateView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            dateView.topAnchor.constraint(equalTo: self.yearView.bottomAnchor, constant: 8),
+            dateView.widthAnchor.constraint(equalTo: topStackView.widthAnchor, multiplier: 0),
             
             selectedDate.centerYAnchor.constraint(equalTo: self.dateView.centerYAnchor),
             selectedDate.centerXAnchor.constraint(equalTo: self.dateView.centerXAnchor),
             
-            stackView.topAnchor.constraint(equalTo: self.dateView.bottomAnchor, constant: 4),
+            stackView.topAnchor.constraint(equalTo: self.dateView.bottomAnchor, constant: 16),
+            stackView.widthAnchor.constraint(equalTo: topStackView.widthAnchor, multiplier: 0)
         ])
     }
     
@@ -90,11 +118,11 @@ class CalendarViewController: UIViewController {
         let date = visibleDates.monthDates.first!.date
         
         formatter.dateFormat = "yyyy"
-        yearLabel.text = formatter.string(from: date)
+        let year = formatter.string(from: date)
         
         formatter.dateFormat = "MMMM"
-        monthLabel.text = formatter.string(from: date)
-        
+        let month = formatter.string(from: date)
+        monthLabel.text = "\(month), \(year)"
     }
     
     func setDate(date: Date) {
@@ -107,7 +135,7 @@ class CalendarViewController: UIViewController {
     func handleCellTextColor(view: JTAppleCell?, cellState: CellState) {
         guard let validCell = view as? CustomCell else { return }
         if cellState.isSelected {
-            validCell.dateLabel.textColor = selectedMonthColor
+            validCell.dateLabel.textColor = UIColor.darkGray
         } else {
    
             if cellState.dateBelongsTo == .thisMonth {
@@ -139,32 +167,29 @@ class CalendarViewController: UIViewController {
             validCell.selectedView.isHidden = true
         } else if date.isSmaller(to: Date()) && !preDateSelectable {
             validCell.dateLabel.text = "-"
-//            self.dayLabel.textColor = UIColor.white
             validCell.isUserInteractionEnabled = false
             validCell.selectedView.isHidden = true
         } else {
-            view?.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-            UIView.animate(
-                withDuration: 0.5,
-                delay: 0, usingSpringWithDamping: 0.3,
-                initialSpringVelocity: 0.1,
-                options: UIViewAnimationOptions.beginFromCurrentState,
-                animations: {
-                    view?.transform = CGAffineTransform(scaleX: 1, y: 1)
-            },
-                completion: { _ in
-//                    validCell.selectedView.isHidden = false
-//                    validCell.isUserInteractionEnabled = true
-            })
-
+            
             validCell.isUserInteractionEnabled = true
             if cellState.isSelected {
+                view?.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                UIView.animate(
+                    withDuration: 0.5,
+                    delay: 0, usingSpringWithDamping: 0.3,
+                    initialSpringVelocity: 0.1,
+                    options: UIViewAnimationOptions.beginFromCurrentState,
+                    animations: {
+                        view?.transform = CGAffineTransform(scaleX: 1, y: 1)
+                },
+                    completion: { _ in
+                })
+
                 validCell.selectedView.isHidden = false
             } else {
                 validCell.selectedView.isHidden = true
             }
             validCell.dateLabel.text = cellState.text
-//            dayLabel.textColor = selectableDateColor
         }
     }
     

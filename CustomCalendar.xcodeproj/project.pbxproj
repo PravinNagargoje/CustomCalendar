@@ -15,7 +15,7 @@
 		1BA35E5A1F73AB030097205A /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA35E591F73AB030097205A /* CustomCell.swift */; };
 		1BCED75E1F766C8E00B39708 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCED75D1F766C8E00B39708 /* FirstViewController.swift */; };
 		1BCED7601F76864C00B39708 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCED75F1F76864C00B39708 /* Extensions.swift */; };
-		1BCED7621F768AF600B39708 /* image2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BCED7611F768AF600B39708 /* image2.png */; };
+		1BD475B61F7A7D930046D02E /* image2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BD475B51F7A7D930046D02E /* image2.png */; };
 		EEEA2CD010F0C913F29F8A2A /* Pods_CustomCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D93F7DBF0AA483C0732EB8 /* Pods_CustomCalendar.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +30,7 @@
 		1BA35E591F73AB030097205A /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		1BCED75D1F766C8E00B39708 /* FirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		1BCED75F1F76864C00B39708 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		1BCED7611F768AF600B39708 /* image2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image2.png; sourceTree = "<group>"; };
+		1BD475B51F7A7D930046D02E /* image2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image2.png; sourceTree = "<group>"; };
 		96D93F7DBF0AA483C0732EB8 /* Pods_CustomCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF7976994D475908504A63F4 /* Pods-CustomCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomCalendar.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomCalendar/Pods-CustomCalendar.release.xcconfig"; sourceTree = "<group>"; };
 		FCE5D57CC8A468EE7B45F878 /* Pods-CustomCalendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomCalendar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomCalendar/Pods-CustomCalendar.debug.xcconfig"; sourceTree = "<group>"; };
@@ -75,8 +75,8 @@
 				1BA35E591F73AB030097205A /* CustomCell.swift */,
 				1BCED75F1F76864C00B39708 /* Extensions.swift */,
 				1BA35E4B1F73A3510097205A /* Main.storyboard */,
+				1BD475B51F7A7D930046D02E /* image2.png */,
 				1BA35E4E1F73A3510097205A /* Assets.xcassets */,
-				1BCED7611F768AF600B39708 /* image2.png */,
 				1BA35E501F73A3510097205A /* LaunchScreen.storyboard */,
 				1BA35E531F73A3510097205A /* Info.plist */,
 			);
@@ -165,8 +165,8 @@
 			files = (
 				1BA35E521F73A3510097205A /* LaunchScreen.storyboard in Resources */,
 				1BA35E4F1F73A3510097205A /* Assets.xcassets in Resources */,
-				1BCED7621F768AF600B39708 /* image2.png in Resources */,
 				1BA35E4D1F73A3510097205A /* Main.storyboard in Resources */,
+				1BD475B61F7A7D930046D02E /* image2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

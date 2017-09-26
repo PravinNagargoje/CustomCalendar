@@ -9,8 +9,6 @@
 import UIKit
 import JTAppleCalendar
 
-let preDateSelectable: Bool = false
-
 class CustomCell: JTAppleCell {
 
     @IBOutlet weak var dateLabel: UILabel!
